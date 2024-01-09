@@ -25,14 +25,17 @@ public class Main {
                         while (true)
                         {
                             System.out.println("Введите стоимость товара (Формат: рубли,копейки):");
-                            // try catch, написанный для int также отловит недопустимые символы, введённые и здесь
-                            costOfProduct = scanner.nextDouble();
-                            scanner.nextLine();
-                            if (costOfProduct <= 0.00)
-                            {
-                                System.out.println("Ошибка: некорректная цена, введите положительное число.");
+                            try {
+                                costOfProduct = scanner.nextDouble();
+                                scanner.nextLine();
+                                if (costOfProduct <= 0.00) {
+                                    System.out.println("Ошибка: некорректная цена, введите положительное число.");
+                                } else break;
                             }
-                            else break;
+                            catch (InputMismatchException e) {
+                                System.out.println("Ошибка: недопустимый тип ввода.");
+                                scanner.nextLine();
+                            }
                         }
                         // Можно создавать и добавлять в список новый продукт
                         Product product = new Product(nameOfProduct, costOfProduct);
@@ -51,7 +54,7 @@ public class Main {
                 }
             }
             catch (InputMismatchException e) {
-                System.out.println("Ошибка: недопустимый тип ввода.");
+                System.out.println("Ошибка: недопустимый тип ввода. Требуется ввести целое число.");
                 scanner.nextLine();
             }
         }
