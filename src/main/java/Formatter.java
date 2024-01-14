@@ -1,25 +1,24 @@
 public class Formatter {
-    String roundingTheDouble(double totalCostForEach)
-    {
+    String roundingTheDouble(double totalCostForEach) {
         return String.format("%.2f", totalCostForEach);
     }
 
-    String displayCurrency(double totalCostForEach)
-    {
+    String displayCurrency(double totalCostForEach) {
         String currency;
+        String standardCurrency = " рублей.";
         int cost = (int) Math.floor(totalCostForEach);
+        int preCalcCost = cost % 100;
         switch (cost % 10) {
             case 1 -> {
-                if (cost % 100 == 11) currency = " рублей.";
+                if (preCalcCost == 11) currency = standardCurrency;
                 else currency = " рубль.";
             }
-            case 2, 3, 4 ->
-            {
-                if (cost % 100 == 12 || cost % 100 == 13 || cost % 100 == 14)
-                    currency = " рублей.";
+            case 2, 3, 4 -> {
+                if (preCalcCost >= 12 && preCalcCost <= 14)
+                    currency = standardCurrency;
                 else currency = " рубля.";
             }
-            default -> currency = " рублей.";
+            default -> currency = standardCurrency;
         }
         return currency;
     }
